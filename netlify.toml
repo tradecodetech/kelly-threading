@@ -1,0 +1,21 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions."reminder"]
+  schedule = "0 * * * *"
+
+[[redirects]]
+  from   = "/api/booking"
+  to     = "/.netlify/functions/booking"
+  status = 200
+
+[[redirects]]
+  from   = "/api/store-booking"
+  to     = "/.netlify/functions/store-booking"
+  status = 200
+
+[[redirects]]
+  from   = "/api/get-bookings"
+  to     = "/.netlify/functions/get-bookings"
+  status = 200
