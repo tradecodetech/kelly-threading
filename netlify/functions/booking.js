@@ -1,61 +1,58 @@
 // netlify/functions/booking.js
-// Receives booking from form → saves to file → sends SMS via Twilio
+// Receives booking → sends to Zapier → Zapier emails you instantly
+// No Twilio needed. Free.
 
 const https = require('https');
-const querystring = require('querystring');
 
-// ─── Twilio SMS helper ───────────────────────────────────────────────────────
-function sendSMS(to, body) {
+function postToZapier(data) {
   return new Promise((resolve, reject) => {
-    const accountSid = process.env.TWILIO_ACCOUNT_SID;
-    const authToken  = process.env.TWILIO_AUTH_TOKEN;
-    const fromNumber = process.env.TWILIO_PHONE_NUMBER; // your Twilio number
-
-    const postData = querystring.stringify({
-      To:   to,
-      From: fromNumber,
-      Body: body
-    });
-
+    const body = JSON.stringify(data);
     const options = {
-      hostname: 'api.twilio.com',
+      hostname: 'hooks.zapier.com',
       port: 443,
-      path: `/2010-04-01/Accounts/${accountSid}/Messages.json`,
+      path: '/hooks/catch/27192061/u7e2wnt/',
       method: 'POST',
       headers: {
-        'Content-Type':   'application/x-www-form-urlencoded',
-        'Content-Length': Buffer.byteLength(postData),
-        'Authorization':  'Basic ' + Buffer.from(`${accountSid}:${authToken}`).toString('base64')
+        'Content-Type':   'application/json',
+        'Content-Length': Buffer.byteLength(body)
       }
     };
 
     const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
+      let responseData = '';
+      res.on('data', chunk => responseData += chunk);
       res.on('end', () => {
-        const parsed = JSON.parse(data);
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(parsed);
-        } else {
-          reject(new Error(`Twilio error: ${parsed.message || data}`));
-        }
+        console.log('Zapier response:', res.statusCode, responseData);
+        resolve({ status: res.statusCode, body: responseData });
       });
     });
 
-    req.on('error', reject);
-    req.write(postData);
+    req.on('error', (err) => {
+      console.error('Zapier error:', err.message);
+      reject(err);
+    });
+
+    req.write(body);
     req.end();
   });
 }
 
-// ─── Main handler ────────────────────────────────────────────────────────────
 exports.handler = async (event) => {
-  // Only allow POST
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin':  '*',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: ''
+    };
+  }
+
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  // CORS headers so your HTML page can call this
   const headers = {
     'Access-Control-Allow-Origin':  '*',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -69,26 +66,14 @@ exports.handler = async (event) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid JSON' }) };
   }
 
-  // ── Validate required fields ──
   const required = ['name', 'phone', 'category', 'service', 'date', 'time'];
   for (const field of required) {
     if (!booking[field]) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ error: `Missing field: ${field}` })
-      };
+      return { statusCode: 400, headers, body: JSON.stringify({ error: `Missing: ${field}` }) };
     }
   }
 
-  // ── Clean phone numbers ──
-  const cleanPhone = booking.phone.replace(/\D/g, '');
-  const customerPhone = cleanPhone.length === 10 ? `+1${cleanPhone}` : `+${cleanPhone}`;
-  const ownerPhone    = process.env.OWNER_PHONE;   // e.g. +18062810650
-  const myPhone       = process.env.MY_PHONE;      // your phone (you, the marketer)
-
-  // ── Format date nicely ──
-  const apptDate = new Date(booking.date + 'T12:00:00'); // noon to avoid timezone issues
+  const apptDate = new Date(booking.date + 'T12:00:00');
   const dateStr  = apptDate.toLocaleDateString('en-US', {
     weekday: 'long', month: 'long', day: 'numeric'
   });
@@ -96,86 +81,53 @@ exports.handler = async (event) => {
   const isNew   = booking.newCustomer === 'yes';
   const hasCode = (booking.promoCode || '').toUpperCase() === 'KELLY10';
 
-  // ── SMS to YOU (the marketer) ──
-  const alertMsg = 
-`🌸 NEW KELLY BOOKING
----
-Name: ${booking.name}
-Phone: ${booking.phone}
-Service: ${booking.service} (${booking.category})
-Date: ${dateStr}
-Time: ${booking.time}
-New Customer: ${isNew ? 'YES ✅' : 'No'}
-Promo Code: ${booking.promoCode || 'None'}
-Price: ${booking.price || 'TBD'}
----
-${isNew && hasCode ? '💰 KELLY10 used — commission earned!' : ''}`;
+  const zapierPayload = {
+    booking_id:     booking.id || 'BK' + Date.now(),
+    customer_name:  booking.name,
+    customer_phone: booking.phone,
+    service:        booking.service,
+    category:       booking.category,
+    price:          booking.price || 'TBD',
+    date:           dateStr,
+    time:           booking.time,
+    new_customer:   isNew ? 'YES - New Customer' : 'Returning Customer',
+    promo_code:     booking.promoCode || 'None',
+    commission:     hasCode ? 'YES - KELLY10 used' : 'No code used',
+    timestamp:      new Date().toISOString(),
 
-  // ── SMS to OWNER ──
-  const ownerMsg =
-`🌸 New Booking Request!
-${booking.name} wants ${booking.service}
-📅 ${dateStr} at ${booking.time}
-📞 ${booking.phone}
-${hasCode ? '🏷️ Code KELLY10 — give 10% off' : ''}
-Reply to confirm or call them.`;
-
-  // ── Confirmation SMS to CUSTOMER ──
-  const confirmMsg =
-`Hi ${booking.name}! 🌸
-Your booking request at Kelly Threading & Waxing is received!
-
-📅 ${dateStr} at ${booking.time}
-💆 ${booking.service}
-📍 2239 34th St, Lubbock TX
-${hasCode ? '🏷️ Code KELLY10 = 10% OFF your visit!' : ''}
-
-We'll call to confirm soon. Questions? Call (806) 281-0650.
-— Kelly Threading & Waxing`;
-
-  // ── Send all SMS ──
-  const results = { sms: {} };
-
-  try {
-    await sendSMS(myPhone, alertMsg);
-    results.sms.marketer = 'sent';
-  } catch (e) {
-    console.error('SMS to marketer failed:', e.message);
-    results.sms.marketer = 'failed: ' + e.message;
-  }
-
-  try {
-    await sendSMS(ownerPhone, ownerMsg);
-    results.sms.owner = 'sent';
-  } catch (e) {
-    console.error('SMS to owner failed:', e.message);
-    results.sms.owner = 'failed: ' + e.message;
-  }
-
-  try {
-    await sendSMS(customerPhone, confirmMsg);
-    results.sms.customer = 'sent';
-  } catch (e) {
-    console.error('SMS to customer failed:', e.message);
-    results.sms.customer = 'failed: ' + e.message;
-  }
-
-  // ── Schedule 24hr reminder (stored in Netlify env as a queued job) ──
-  // We store the reminder data — the reminder function handles the timing
-  results.booking = {
-    id:        'BK' + Date.now(),
-    name:      booking.name,
-    phone:     customerPhone,
-    service:   booking.service,
-    date:      booking.date,
-    time:      booking.time,
-    promoCode: booking.promoCode,
-    timestamp: new Date().toISOString()
+    email_subject: `🌸 New Kelly Booking — ${booking.name} — ${booking.service}`,
+    email_body:
+`NEW BOOKING REQUEST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 Name:        ${booking.name}
+📞 Phone:       ${booking.phone}
+💆 Service:     ${booking.service} (${booking.category})
+💰 Price:       ${booking.price || 'TBD'}
+📅 Date:        ${dateStr}
+⏰ Time:        ${booking.time}
+🆕 New Customer: ${isNew ? 'YES ✅' : 'No'}
+🏷️  Promo Code:  ${booking.promoCode || 'None'}
+${hasCode ? '💰 KELLY10 used — YOU EARN COMMISSION!' : ''}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Call ${booking.name} at ${booking.phone} to confirm.
+Kelly Threading — (806) 281-0650
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
   };
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({ success: true, ...results })
-  };
+  try {
+    const result = await postToZapier(zapierPayload);
+    console.log('Zapier sent:', result.status);
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ success: true, zapier: result.status })
+    };
+  } catch (err) {
+    console.error('Zapier failed:', err.message);
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ success: true, warning: 'Notification issue' })
+    };
+  }
 };
