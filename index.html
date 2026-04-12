@@ -80,7 +80,6 @@
     a { text-decoration: none; color: inherit; }
     button, input, select { font-family: var(--ff); }
 
-    /* ── Petal SVG bg ── */
     body::before {
       content: '';
       position: fixed;
@@ -95,9 +94,6 @@
     }
     main, header, footer, .urg, .bot-bar { position: relative; z-index: 1; }
 
-    /* ══════════════════════════════════════
-       URGENCY BAR
-    ══════════════════════════════════════ */
     .urg {
       background: linear-gradient(135deg, var(--pink-deep), var(--pink-d));
       color: #fff;
@@ -118,9 +114,6 @@
       letter-spacing: .05em;
     }
 
-    /* ══════════════════════════════════════
-       HEADER
-    ══════════════════════════════════════ */
     .hdr {
       position: sticky;
       top: 0;
@@ -158,9 +151,6 @@
     }
     .hdr-book:hover { transform: translateY(-2px); box-shadow: var(--sh-lg); }
 
-    /* ══════════════════════════════════════
-       HERO — matches mockup layout
-    ══════════════════════════════════════ */
     .hero {
       background: linear-gradient(170deg, var(--cream-warm) 0%, var(--pink-mist) 50%, var(--cream-warm) 100%);
       padding: 36px 20px 36px;
@@ -169,8 +159,6 @@
       overflow: hidden;
       border-bottom: 3px solid var(--pink-lt);
     }
-
-    /* Floral corner decorations */
     .hero-floral {
       position: absolute;
       font-size: 5rem;
@@ -183,7 +171,6 @@
     .hero-floral.tr { top: -8px; right: -8px; transform: rotate(20deg) scaleX(-1); }
     .hero-floral.bl { bottom: -8px; left: -8px; transform: rotate(15deg); }
     .hero-floral.br { bottom: -8px; right: -8px; transform: rotate(-15deg) scaleX(-1); }
-
     .hero-script {
       font-family: var(--ff-script);
       font-size: clamp(2.2rem, 8vw, 3.2rem);
@@ -197,8 +184,6 @@
       font-weight: 700;
       margin-bottom: 18px;
     }
-
-    /* Promo badge — prominent like mockup */
     .promo-banner {
       display: inline-flex;
       flex-direction: column;
@@ -244,9 +229,6 @@
       color: var(--tx-mid);
       margin-top: 6px;
     }
-    .pb-services span { color: var(--tx-mid); }
-
-    /* Hero CTA buttons — side by side like mockup */
     .hero-cta {
       display: flex;
       gap: 10px;
@@ -255,39 +237,23 @@
       margin-bottom: 14px;
     }
     .btn-hero-book {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
+      display: inline-flex; align-items: center; gap: 7px;
       padding: 14px 22px;
       background: linear-gradient(135deg, var(--pink-d), var(--pink-deep));
-      color: #fff;
-      border-radius: 50px;
-      font-weight: 800;
-      font-size: .92rem;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 5px 20px rgba(168,48,88,.42);
-      transition: var(--ease);
+      color: #fff; border-radius: 50px; font-weight: 800; font-size: .92rem;
+      border: none; cursor: pointer;
+      box-shadow: 0 5px 20px rgba(168,48,88,.42); transition: var(--ease);
     }
     .btn-hero-book:hover { transform: translateY(-2px); box-shadow: var(--sh-lg); }
     .btn-hero-call {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
+      display: inline-flex; align-items: center; gap: 7px;
       padding: 14px 22px;
       background: linear-gradient(135deg, var(--pink), var(--pink-d));
-      color: #fff;
-      border-radius: 50px;
-      font-weight: 800;
-      font-size: .92rem;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 5px 20px rgba(201,79,114,.38);
-      transition: var(--ease);
+      color: #fff; border-radius: 50px; font-weight: 800; font-size: .92rem;
+      border: none; cursor: pointer;
+      box-shadow: 0 5px 20px rgba(201,79,114,.38); transition: var(--ease);
     }
     .btn-hero-call:hover { transform: translateY(-2px); }
-
-    /* "Show code in store" pill — matches mockup */
     .store-pill {
       display: inline-block;
       background: var(--cream-warm);
@@ -299,23 +265,15 @@
     }
     .store-pill strong { color: var(--pink-d); letter-spacing: .06em; }
 
-    /* ══════════════════════════════════════
-       MAIN SPLIT SECTION — services left, form right
-    ══════════════════════════════════════ */
     .split-section {
       background: linear-gradient(180deg, var(--cream-warm) 0%, var(--cream) 100%);
       padding: 28px 16px 28px;
     }
     .split-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items: start;
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 18px; align-items: start;
     }
-
-    /* ── LEFT: Popular Services ── */
     .svc-panel-left {
       background: rgba(255,255,255,.72);
       border: 2px solid var(--pink-lt);
@@ -324,115 +282,70 @@
       box-shadow: 0 2px 16px rgba(201,79,114,.08);
     }
     .svc-panel-title {
-      font-weight: 900;
-      font-size: 1.05rem;
-      color: var(--pink-d);
-      text-align: center;
-      margin-bottom: 14px;
-      font-family: var(--ff);
+      font-weight: 900; font-size: 1.05rem; color: var(--pink-d);
+      text-align: center; margin-bottom: 14px; font-family: var(--ff);
     }
     .svc-list { list-style: none; }
     .svc-list li {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--pink-pale);
-      font-size: .88rem;
-      color: var(--tx);
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--ease);
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 0; border-bottom: 1px solid var(--pink-pale);
+      font-size: .88rem; color: var(--tx); font-weight: 600;
+      cursor: pointer; transition: var(--ease);
     }
     .svc-list li:last-child { border-bottom: none; }
     .svc-list li:hover { color: var(--pink-d); padding-left: 4px; }
     .svc-list li .dot {
-      width: 8px;
-      height: 8px;
-      background: var(--pink);
-      border-radius: 50%;
-      flex-shrink: 0;
+      width: 8px; height: 8px; background: var(--pink);
+      border-radius: 50%; flex-shrink: 0;
     }
-    .svc-list li .price {
-      margin-left: auto;
-      font-weight: 900;
-      color: var(--tx-mid);
-    }
-
-    /* Promo tag in services panel */
+    .svc-list li .price { margin-left: auto; font-weight: 900; color: var(--tx-mid); }
     .svc-promo-tag {
       background: linear-gradient(135deg, var(--pink-d), var(--pink-deep));
-      color: #fff;
-      border-radius: var(--r-sm);
-      padding: 10px 14px;
-      text-align: center;
-      font-size: .82rem;
-      font-weight: 800;
-      margin-top: 14px;
+      color: #fff; border-radius: var(--r-sm);
+      padding: 10px 14px; text-align: center;
+      font-size: .82rem; font-weight: 800; margin-top: 14px;
     }
-
-    /* Walk-ins box */
     .walkin-box {
       background: rgba(255,255,255,.72);
       border: 2px solid var(--pink-lt);
       border-radius: var(--r);
-      padding: 14px 16px;
-      text-align: center;
-      margin-top: 12px;
+      padding: 14px 16px; text-align: center; margin-top: 12px;
     }
     .walkin-title { font-weight: 900; font-size: .92rem; color: var(--tx); margin-bottom: 4px; }
     .walkin-addr  { font-size: .78rem; color: var(--tx-mid); display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 3px; }
     .walkin-phone { font-size: .82rem; color: var(--tx-mid); display: flex; align-items: center; justify-content: center; gap: 4px; font-weight: 700; }
     .walkin-code  {
-      display: inline-block;
-      margin-top: 10px;
-      background: var(--cream-warm);
-      border: 2px solid var(--pink-lt);
-      border-radius: 50px;
-      padding: 6px 18px;
-      font-size: .8rem;
-      color: var(--tx-mid);
+      display: inline-block; margin-top: 10px;
+      background: var(--cream-warm); border: 2px solid var(--pink-lt);
+      border-radius: 50px; padding: 6px 18px;
+      font-size: .8rem; color: var(--tx-mid);
     }
     .walkin-code strong { color: var(--pink-d); font-weight: 900; letter-spacing: .06em; }
 
-    /* ── RIGHT: Booking Form ── */
     .bk-panel {
       background: rgba(255,255,255,.82);
       border: 2px solid var(--pink-lt);
       border-radius: var(--r);
       padding: 20px 16px;
       box-shadow: 0 2px 16px rgba(201,79,114,.08);
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
-
-    /* floral watermark top of booking panel */
     .bk-panel::before {
-      content: '🌸';
-      position: absolute;
-      top: -10px; right: -10px;
-      font-size: 5rem;
-      opacity: .08;
-      pointer-events: none;
+      content: '🌸'; position: absolute;
+      top: -10px; right: -10px; font-size: 5rem;
+      opacity: .08; pointer-events: none;
     }
-
     .bk-panel-title {
-      font-family: var(--ff-script);
-      font-size: 1.6rem;
-      color: var(--pink-d);
-      text-align: center;
-      margin-bottom: 14px;
+      font-family: var(--ff-script); font-size: 1.6rem;
+      color: var(--pink-d); text-align: center; margin-bottom: 14px;
     }
-
     .form-group { margin-bottom: 12px; }
     .form-input, .form-select {
       width: 100%; padding: 12px 14px;
-      border: 1.5px solid var(--pink-lt);
-      border-radius: var(--r-sm);
+      border: 1.5px solid var(--pink-lt); border-radius: var(--r-sm);
       font-size: .92rem; color: var(--tx);
       background: rgba(255,253,240,.9);
-      transition: var(--ease);
-      -webkit-appearance: none; appearance: none;
+      transition: var(--ease); -webkit-appearance: none; appearance: none;
     }
     .form-input::placeholder { color: var(--tx-lt); }
     .form-input:focus, .form-select:focus {
@@ -442,14 +355,10 @@
     .form-input.err, .form-select.err { border-color: #e53935; }
     .form-select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23c94f72' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      padding-right: 40px;
+      background-repeat: no-repeat; background-position: right 12px center; padding-right: 40px;
     }
     .err-msg { color: #e53935; font-size: .7rem; margin-top: 3px; display: none; }
     .err-msg.show { display: block; }
-
-    /* New Customer radio */
     .nc-label { font-size: .78rem; font-weight: 700; color: var(--tx-mid); margin-bottom: 6px; display: block; }
     .radio-group { display: flex; gap: 8px; }
     .radio-opt { flex: 1; position: relative; }
@@ -464,14 +373,10 @@
     .radio-opt input:checked + .radio-lbl {
       border-color: var(--pink); background: var(--pink-pale); color: var(--pink-d);
     }
-
-    /* Promo code field */
     .promo-wrap { position: relative; }
     .promo-wrap .form-input {
-      background: var(--cream-warm);
-      border-color: var(--pink-lt);
-      font-weight: 900; color: var(--pink-d);
-      letter-spacing: .08em; font-size: 1rem;
+      background: var(--cream-warm); border-color: var(--pink-lt);
+      font-weight: 900; color: var(--pink-d); letter-spacing: .08em; font-size: 1rem;
     }
     .promo-tag {
       position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
@@ -479,7 +384,6 @@
       font-size: .6rem; font-weight: 900; padding: 3px 8px; border-radius: 50px;
       pointer-events: none; letter-spacing: .04em;
     }
-
     .submit-btn {
       width: 100%; padding: 15px;
       background: linear-gradient(135deg, var(--pink), var(--pink-d));
@@ -489,8 +393,8 @@
       letter-spacing: .03em; margin-top: 4px;
     }
     .submit-btn:hover { transform: translateY(-2px); box-shadow: var(--sh-lg); }
+    .submit-btn:disabled { opacity: .7; cursor: not-allowed; transform: none; }
 
-    /* Success */
     .success-screen { display: none; text-align: center; padding: 8px 4px 4px; }
     .success-screen.on { display: block; }
     .success-ico {
@@ -517,14 +421,10 @@
     }
     .btn-outline-sm:hover { background: var(--pink-pale); }
 
-    /* ══════════════════════════════════════
-       FULL SERVICES SECTION
-    ══════════════════════════════════════ */
     .section { padding: 44px 20px; }
     .bg-white { background: var(--white); }
     .bg-mist  { background: linear-gradient(180deg, var(--cream-warm) 0%, var(--cream) 100%); }
     .bg-pink  { background: linear-gradient(135deg, var(--pink), var(--pink-d)); color: #fff; }
-
     .section-title {
       font-size: clamp(1.3rem, 3.5vw, 1.9rem);
       font-weight: 900; color: var(--tx); text-align: center; margin-bottom: 6px;
@@ -539,15 +439,11 @@
     }
     .divider.light { background: linear-gradient(90deg,#fff,rgba(255,255,255,.4)); }
 
-    /* Tabs */
-    .svc-tabs {
-      display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 22px;
-    }
+    .svc-tabs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 22px; }
     .tab-btn {
       padding: 9px 18px; border-radius: 50px;
       border: 2px solid var(--pink-lt); background: var(--cream-warm);
-      color: var(--tx-mid); font-size: .82rem; font-weight: 700;
-      cursor: pointer; transition: var(--ease);
+      color: var(--tx-mid); font-size: .82rem; font-weight: 700; cursor: pointer; transition: var(--ease);
     }
     .tab-btn.active, .tab-btn:hover {
       background: linear-gradient(135deg, var(--pink), var(--pink-d));
@@ -555,20 +451,14 @@
     }
     .svc-panel-full { display: none; }
     .svc-panel-full.active { display: block; }
-    .svc-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 10px; max-width: 580px; margin: 0 auto;
-    }
+    .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 580px; margin: 0 auto; }
     .svc-card {
       background: rgba(255,255,255,.8);
       border: 1.5px solid var(--pink-lt); border-radius: var(--r);
       padding: 12px; display: flex; align-items: center;
-      justify-content: space-between; gap: 8px;
-      cursor: pointer; transition: var(--ease);
+      justify-content: space-between; gap: 8px; cursor: pointer; transition: var(--ease);
     }
-    .svc-card:hover, .svc-card:active {
-      border-color: var(--pink); background: var(--white); box-shadow: var(--sh);
-    }
+    .svc-card:hover, .svc-card:active { border-color: var(--pink); background: var(--white); box-shadow: var(--sh); }
     .svc-card-name { font-size: .84rem; font-weight: 700; color: var(--tx); }
     .svc-card-meta { font-size: .7rem; color: var(--tx-mid); }
     .svc-price-tag {
@@ -576,14 +466,8 @@
       color: #fff; font-size: .8rem; font-weight: 900;
       padding: 5px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;
     }
-    .discount-price {
-      font-size: .68rem; opacity: .85; text-decoration: line-through;
-      font-weight: 400; display: block; text-align: center;
-    }
+    .discount-price { font-size: .68rem; opacity: .85; text-decoration: line-through; font-weight: 400; display: block; text-align: center; }
 
-    /* ══════════════════════════════════════
-       MORE SERVICES TOGGLE
-    ══════════════════════════════════════ */
     .more-svc-btn {
       background: var(--cream-warm); border: 2px solid var(--pink-lt);
       border-radius: 50px; padding: 10px 22px; color: var(--tx-mid);
@@ -592,104 +476,46 @@
     }
     .more-svc-btn:hover { border-color: var(--pink); color: var(--pink-d); }
 
-    /* ══════════════════════════════════════
-       WHY / TRUST
-    ══════════════════════════════════════ */
-    .why-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 12px; max-width: 580px; margin: 0 auto;
-    }
-    .why-item {
-      text-align: center; padding: 20px 12px;
-      background: rgba(255,255,255,.2); border-radius: var(--r);
-      border: 1.5px solid rgba(255,255,255,.3);
-    }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 580px; margin: 0 auto; }
+    .why-item { text-align: center; padding: 20px 12px; background: rgba(255,255,255,.2); border-radius: var(--r); border: 1.5px solid rgba(255,255,255,.3); }
     .why-ico   { font-size: 1.9rem; display: block; margin-bottom: 6px; }
     .why-title { font-size: .88rem; font-weight: 900; color: #fff; margin-bottom: 3px; }
     .why-desc  { font-size: .74rem; color: rgba(255,255,255,.82); }
 
-    .trust-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 12px; max-width: 580px; margin: 0 auto 24px;
-    }
-    .trust-item {
-      text-align: center; padding: 18px 10px;
-      background: rgba(255,255,255,.7); border-radius: var(--r);
-      border: 1.5px solid var(--pink-pale);
-    }
+    .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 580px; margin: 0 auto 24px; }
+    .trust-item { text-align: center; padding: 18px 10px; background: rgba(255,255,255,.7); border-radius: var(--r); border: 1.5px solid var(--pink-pale); }
     .t-ico   { font-size: 1.9rem; display: block; margin-bottom: 6px; }
     .t-title { font-size: .86rem; font-weight: 800; color: var(--tx); margin-bottom: 2px; }
     .t-desc  { font-size: .72rem; color: var(--tx-mid); }
 
     .reviews-list { display: flex; flex-direction: column; gap: 10px; max-width: 500px; margin: 0 auto; }
-    .rev-card {
-      background: rgba(255,255,255,.7); border-left: 4px solid var(--pink);
-      border-radius: 0 var(--r) var(--r) 0; padding: 14px 16px;
-    }
+    .rev-card { background: rgba(255,255,255,.7); border-left: 4px solid var(--pink); border-radius: 0 var(--r) var(--r) 0; padding: 14px 16px; }
     .stars    { color: #f4a000; font-size: .9rem; margin-bottom: 6px; }
     .rev-text { font-size: .86rem; color: var(--tx-mid); font-style: italic; margin-bottom: 7px; }
     .rev-auth { font-size: .76rem; font-weight: 700; color: var(--tx); }
 
-    /* ══════════════════════════════════════
-       HOURS
-    ══════════════════════════════════════ */
-    .hrs-card {
-      background: rgba(255,255,255,.75); border: 1.5px solid var(--pink-lt);
-      border-radius: var(--r); max-width: 420px; margin: 0 auto; overflow: hidden;
-    }
-    .h-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 18px; border-bottom: 1px solid var(--pink-pale);
-    }
+    .hrs-card { background: rgba(255,255,255,.75); border: 1.5px solid var(--pink-lt); border-radius: var(--r); max-width: 420px; margin: 0 auto; overflow: hidden; }
+    .h-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--pink-pale); }
     .h-row:last-child { border-bottom: none; }
     .h-row.today { background: var(--pink-pale); }
     .h-row.today .h-day { color: var(--pink-d); font-weight: 800; }
     .h-day  { font-size: .86rem; color: var(--tx-mid); font-weight: 600; }
     .h-time { font-size: .86rem; font-weight: 700; color: var(--tx); }
-    .open-pill {
-      display: inline-block; background: #2e7d32; color: #fff;
-      font-size: .58rem; font-weight: 900; padding: 2px 7px;
-      border-radius: 50px; margin-left: 6px; letter-spacing: .04em;
-    }
+    .open-pill { display: inline-block; background: #2e7d32; color: #fff; font-size: .58rem; font-weight: 900; padding: 2px 7px; border-radius: 50px; margin-left: 6px; letter-spacing: .04em; }
 
-    /* ══════════════════════════════════════
-       LOCATION
-    ══════════════════════════════════════ */
-    .map-wrap {
-      border-radius: var(--r); overflow: hidden;
-      box-shadow: var(--sh); max-width: 620px; margin: 0 auto 18px;
-    }
+    .map-wrap { border-radius: var(--r); overflow: hidden; box-shadow: var(--sh); max-width: 620px; margin: 0 auto 18px; }
     .map-wrap iframe { width: 100%; height: 240px; border: none; display: block; }
-    .loc-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 10px; max-width: 620px; margin: 0 auto;
-    }
-    .loc-btn {
-      display: flex; align-items: center; gap: 10px;
-      background: rgba(255,255,255,.75); border: 1.5px solid var(--pink-lt);
-      border-radius: var(--r); padding: 12px;
-      color: var(--tx); transition: var(--ease);
-      font-size: .82rem; font-weight: 600;
-    }
+    .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 620px; margin: 0 auto; }
+    .loc-btn { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,.75); border: 1.5px solid var(--pink-lt); border-radius: var(--r); padding: 12px; color: var(--tx); transition: var(--ease); font-size: .82rem; font-weight: 600; }
     .loc-btn:hover { border-color: var(--pink); box-shadow: var(--sh); }
     .loc-btn .ico { font-size: 1.4rem; flex-shrink: 0; }
     .loc-btn .lbl { font-size: .66rem; color: var(--tx-lt); }
 
-    /* ══════════════════════════════════════
-       FOOTER
-    ══════════════════════════════════════ */
-    footer {
-      background: var(--tx); color: #fff;
-      padding: 40px 20px 24px; text-align: center;
-    }
+    footer { background: var(--tx); color: #fff; padding: 40px 20px 24px; text-align: center; }
     .ft-brand   { font-family: var(--ff-script); font-size: 1.5rem; color: var(--pink-lt); margin-bottom: 3px; }
     .ft-addr    { font-size: .78rem; color: rgba(255,255,255,.45); margin-bottom: 20px; }
     .ft-social  { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
-    .s-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 10px 16px; border-radius: 50px;
-      font-size: .78rem; font-weight: 700; transition: var(--ease);
-    }
+    .s-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: 50px; font-size: .78rem; font-weight: 700; transition: var(--ease); }
     .s-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
     .s-fb   { background: #1877f2; color: #fff; }
     .s-sms  { background: #43a047; color: #fff; }
@@ -697,14 +523,8 @@
     .ft-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
     .ft-link  { color: rgba(255,255,255,.55); font-size: .78rem; transition: color .2s; }
     .ft-link:hover { color: var(--pink-lt); }
-    .ft-bottom {
-      border-top: 1px solid rgba(255,255,255,.1); padding-top: 12px;
-      font-size: .7rem; color: rgba(255,255,255,.3); line-height: 1.7;
-    }
+    .ft-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 12px; font-size: .7rem; color: rgba(255,255,255,.3); line-height: 1.7; }
 
-    /* ══════════════════════════════════════
-       MOBILE STICKY BAR
-    ══════════════════════════════════════ */
     .bot-bar {
       position: fixed; bottom: 0; left: 0; right: 0;
       z-index: 990; background: var(--cream-warm);
@@ -717,21 +537,13 @@
     .bb-call, .bb-book {
       flex: 1; display: flex; align-items: center; justify-content: center;
       gap: 6px; padding: 14px; border-radius: 50px;
-      font-weight: 800; font-size: .86rem; border: none;
-      cursor: pointer; transition: var(--ease);
+      font-weight: 800; font-size: .86rem; border: none; cursor: pointer; transition: var(--ease);
     }
     .bb-call { background: var(--pink-pale); color: var(--pink-d); }
-    .bb-book {
-      flex: 1.65;
-      background: linear-gradient(135deg, var(--pink), var(--pink-d));
-      color: #fff; box-shadow: 0 4px 16px rgba(201,79,114,.36);
-    }
+    .bb-book { flex: 1.65; background: linear-gradient(135deg, var(--pink), var(--pink-d)); color: #fff; box-shadow: 0 4px 16px rgba(201,79,114,.36); }
     .bb-book:hover { transform: translateY(-1px); box-shadow: var(--sh-lg); }
     main { padding-bottom: 80px; }
 
-    /* ══════════════════════════════════════
-       CONV PILL / TOAST / ADMIN
-    ══════════════════════════════════════ */
     #conv-pill {
       display: none; position: fixed; bottom: 88px; right: 14px;
       background: linear-gradient(135deg, var(--pink), var(--pink-d));
@@ -753,7 +565,6 @@
     }
     #toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* Admin */
     #admin-panel {
       display: none; position: fixed; inset: 0;
       z-index: 9999; background: rgba(0,0,0,.6);
@@ -761,21 +572,10 @@
       overflow-y: auto; align-items: flex-start; justify-content: center;
     }
     #admin-panel.on { display: flex; }
-    .admin-inner {
-      background: var(--white); border-radius: 20px;
-      padding: 24px 20px 26px; width: 100%; max-width: 720px; margin: 16px 0;
-    }
-    .admin-hdr {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 20px; padding-bottom: 12px;
-      border-bottom: 2px solid var(--pink-pale);
-    }
+    .admin-inner { background: var(--white); border-radius: 20px; padding: 24px 20px 26px; width: 100%; max-width: 720px; margin: 16px 0; }
+    .admin-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--pink-pale); }
     .admin-hdr h2 { font-size: 1.2rem; font-weight: 900; color: var(--pink-d); }
-    .admin-close {
-      background: var(--pink-pale); border: none; border-radius: 50%;
-      width: 34px; height: 34px; font-size: 1rem; cursor: pointer; color: var(--pink-d);
-      display: flex; align-items: center; justify-content: center;
-    }
+    .admin-close { background: var(--pink-pale); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 1rem; cursor: pointer; color: var(--pink-d); display: flex; align-items: center; justify-content: center; }
     .stats-row { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 22px; }
     .stat-card { background: var(--pink-mist); border: 1.5px solid var(--pink-pale); border-radius: var(--r); padding: 14px; text-align: center; }
     .stat-val  { font-size: 1.8rem; font-weight: 900; color: var(--pink-d); line-height: 1; }
@@ -798,18 +598,12 @@
     .tg-promo  { background: var(--gold-lt); color: #7a5c00; }
     .tg-src    { background: #f3f3f3; color: var(--tx-mid); }
     .admin-acts { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
-    .a-btn {
-      padding: 9px 16px; border-radius: var(--r-sm);
-      border: none; font-size: .78rem; font-weight: 700; cursor: pointer; transition: var(--ease);
-    }
+    .a-btn { padding: 9px 16px; border-radius: var(--r-sm); border: none; font-size: .78rem; font-weight: 700; cursor: pointer; transition: var(--ease); }
     .a-btn-exp { background: var(--pink-pale); color: var(--pink-d); }
     .a-btn-exp:hover { background: var(--pink-lt); color: #fff; }
     .a-btn-clr { background: #ffebee; color: #c62828; margin-left: auto; }
     .empty-state { padding: 18px; text-align: center; color: var(--tx-lt); font-size: .82rem; }
 
-    /* ══════════════════════════════════════
-       PROMO STRIP
-    ══════════════════════════════════════ */
     .promo-strip {
       background: var(--cream-warm); border: 1.5px solid var(--pink-lt);
       border-radius: var(--r-sm); padding: 10px 16px; text-align: center;
@@ -818,13 +612,7 @@
     }
     .promo-strip strong { color: var(--pink-d); }
 
-    /* ══════════════════════════════════════
-       GALLERY
-    ══════════════════════════════════════ */
-    .gallery-grid {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 8px; max-width: 580px; margin: 0 auto;
-    }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; max-width: 580px; margin: 0 auto; }
     .gallery-item {
       aspect-ratio: 1;
       background: linear-gradient(135deg, var(--pink-mist), var(--pink-pale));
@@ -833,13 +621,8 @@
     }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* ══════════════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════════════ */
     @media (max-width: 600px) {
-      .split-inner {
-        grid-template-columns: 1fr;
-      }
+      .split-inner { grid-template-columns: 1fr; }
       .svc-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (min-width: 640px) {
@@ -856,12 +639,10 @@
 </head>
 <body>
 
-<!-- ▶ URGENCY BAR -->
 <div class="urg" role="banner">
   🌸 New Customer Special — Show code <span class="pill">KELLY10</span> for <strong>10% OFF</strong> your visit!
 </div>
 
-<!-- ▶ HEADER -->
 <header class="hdr">
   <div>
     <div class="hdr-brand">Kelly Threading &amp; Waxing</div>
@@ -875,17 +656,13 @@
 
 <main>
 
-<!-- ▶ HERO — matches mockup -->
 <section class="hero" id="home">
   <span class="hero-floral tl">🌸</span>
   <span class="hero-floral tr">🌸</span>
   <span class="hero-floral bl">🌸</span>
   <span class="hero-floral br">🌸</span>
-
   <div class="hero-script">Kelly Threading &amp; Waxing</div>
   <div class="hero-addr">2239 34th St &bull; Lubbock, TX &bull; (806) 281-0650</div>
-
-  <!-- Promo banner — matches mockup prominently -->
   <div class="promo-banner">
     <div class="pb-new-badge">NEW CUSTOMER SPECIAL</div>
     <div class="pb-use-code">Use Code</div>
@@ -893,55 +670,29 @@
     <div class="pb-discount">Get 10% OFF</div>
     <div class="pb-services">Threading &bull; Waxing &bull; Facial &bull; Nails</div>
   </div>
-
-  <!-- Two CTA buttons side by side — matches mockup -->
   <div class="hero-cta">
     <a href="#booking" class="btn-hero-book" onclick="evt('click_book_hero')">📅 Book Appointment</a>
     <a href="tel:+18062810650" class="btn-hero-call" onclick="evt('click_call_hero')">📞 Call Now</a>
   </div>
-
-  <!-- Show code pill — matches mockup -->
   <div class="store-pill">Show Code <strong>KELLY10</strong> in Store</div>
 </section>
 
-<!-- ▶ SPLIT SECTION — Services Left + Booking Form Right -->
 <div class="split-section" id="booking">
   <div class="split-inner">
-
-    <!-- LEFT: Popular Services -->
     <div>
       <div class="svc-panel-left">
         <div class="svc-panel-title">Popular Services</div>
         <ul class="svc-list">
-          <li onclick="pickService('Eyebrows','Threading','$10')">
-            <span class="dot"></span> Eyebrows Threading / Wax <span class="price">$10</span>
-          </li>
-          <li onclick="pickService('Lips','Threading','$6')">
-            <span class="dot"></span> Lips <span class="price">$6</span>
-          </li>
-          <li onclick="pickService('Full Face Threading','Threading','$35')">
-            <span class="dot"></span> Threading / Wax Full Face <span class="price">$35</span>
-          </li>
-          <li onclick="pickService('Eyebrow Tint','Add-On','$10')">
-            <span class="dot"></span> Eyebrow Tint <span class="price">$10</span>
-          </li>
-          <li onclick="pickService('Lips','Threading','$6')">
-            <span class="dot"></span> Lips <span class="price">$6</span>
-          </li>
-          <li onclick="pickService('Mini Facial','Facial','$40')">
-            <span class="dot"></span> Facials <span class="price">$40+</span>
-          </li>
-          <li onclick="pickService('Gel Nails','Nails','$20')">
-            <span class="dot"></span> Gel / Shellac Nails <span class="price">$20+</span>
-          </li>
-          <li onclick="pickService('Manicure & Pedicure','Nails','')">
-            <span class="dot"></span> Manicure &amp; Pedicure Available
-          </li>
+          <li onclick="pickService('Eyebrows','Threading','$10')"><span class="dot"></span> Eyebrows Threading / Wax <span class="price">$10</span></li>
+          <li onclick="pickService('Lips','Threading','$6')"><span class="dot"></span> Lips <span class="price">$6</span></li>
+          <li onclick="pickService('Full Face Threading','Threading','$35')"><span class="dot"></span> Threading / Wax Full Face <span class="price">$35</span></li>
+          <li onclick="pickService('Eyebrow Tint','Add-On','$10')"><span class="dot"></span> Eyebrow Tint <span class="price">$10</span></li>
+          <li onclick="pickService('Mini Facial','Facial','$40')"><span class="dot"></span> Facials <span class="price">$40+</span></li>
+          <li onclick="pickService('Gel Nails','Nails','$20')"><span class="dot"></span> Gel / Shellac Nails <span class="price">$20+</span></li>
+          <li onclick="pickService('Manicure & Pedicure','Nails','')"><span class="dot"></span> Manicure &amp; Pedicure Available</li>
         </ul>
         <div class="svc-promo-tag">Use Code KELLY10 for 10% OFF</div>
       </div>
-
-      <!-- Walk-ins box -->
       <div class="walkin-box">
         <div class="walkin-title">Walk-ins Welcome</div>
         <div class="walkin-addr">📍 2239 34th St · Lubbock, TX</div>
@@ -950,7 +701,6 @@
       </div>
     </div>
 
-    <!-- RIGHT: Booking Form -->
     <div class="bk-panel">
       <div id="form-wrap">
         <div class="bk-panel-title">Book Appointment</div>
@@ -980,7 +730,7 @@
             <div class="err-msg" id="e-service">Please select a service.</div>
           </div>
           <div class="form-group">
-            <input type="date" id="f-date" class="form-input" placeholder="Preferred Date">
+            <input type="date" id="f-date" class="form-input">
             <div class="err-msg" id="e-date">Please select a date.</div>
           </div>
           <div class="form-group">
@@ -998,7 +748,6 @@
             </select>
             <div class="err-msg" id="e-time">Please select a time.</div>
           </div>
-
           <div class="form-group">
             <span class="nc-label">New Customer?</span>
             <div class="radio-group">
@@ -1013,21 +762,16 @@
             </div>
             <div class="err-msg" id="e-nc">Please select one.</div>
           </div>
-
           <div class="form-group">
             <div class="promo-wrap">
               <input type="text" id="f-promo" class="form-input" value="KELLY10" autocomplete="off">
               <span class="promo-tag">10% OFF</span>
             </div>
           </div>
-
-          <button type="submit" class="submit-btn" id="submit-btn">
-            Submit Booking
-          </button>
+          <button type="submit" class="submit-btn" id="submit-btn">Submit Booking</button>
         </form>
       </div>
 
-      <!-- SUCCESS STATE -->
       <div class="success-screen" id="success-screen">
         <div class="success-ico">✓</div>
         <h3>Booking Request Sent!</h3>
@@ -1043,11 +787,9 @@
         <button class="btn-outline-sm" id="btn-again">+ Book Another Service</button>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- ▶ FULL SERVICES (expandable) -->
 <div id="more-services-wrap" style="display:none;">
 <section class="section bg-mist" id="services">
   <h2 class="section-title">All Services &amp; Pricing</h2>
@@ -1108,7 +850,6 @@
   </button>
 </div>
 
-<!-- ▶ WHY COME BACK -->
 <section class="section bg-pink" id="why">
   <h2 class="section-title light">Why Customers Come Back</h2>
   <p class="section-sub light">Hundreds of happy Lubbock clients</p>
@@ -1121,7 +862,6 @@
   </div>
 </section>
 
-<!-- ▶ HOURS -->
 <section class="section bg-mist" id="hours">
   <h2 class="section-title">Business Hours</h2>
   <p class="section-sub">Open 6 days a week</p>
@@ -1129,7 +869,6 @@
   <div class="hrs-card" id="hours-card"></div>
 </section>
 
-<!-- ▶ LOCATION -->
 <section class="section bg-white" id="location">
   <h2 class="section-title">Find Us</h2>
   <p class="section-sub">2239 34th St, Lubbock, TX 79411</p>
@@ -1145,7 +884,6 @@
   </div>
 </section>
 
-<!-- ▶ TRUST + REVIEWS -->
 <section class="section bg-mist" id="trust">
   <h2 class="section-title">Why Choose Kelly?</h2>
   <p class="section-sub">Trusted by hundreds of Lubbock customers</p>
@@ -1163,7 +901,6 @@
   </div>
 </section>
 
-<!-- ▶ GALLERY -->
 <section class="section bg-white" id="gallery">
   <h2 class="section-title">Real Client Experience</h2>
   <p class="section-sub">Beautiful results — every visit</p>
@@ -1180,7 +917,6 @@
 
 </main>
 
-<!-- ▶ FOOTER -->
 <footer>
   <div class="ft-brand">Kelly Threading &amp; Waxing</div>
   <div class="ft-addr">2239 34th St, Lubbock, TX 79411 &nbsp;·&nbsp; Mon–Sat 10am–7pm</div>
@@ -1203,21 +939,17 @@
   </div>
 </footer>
 
-<!-- ▶ MOBILE BOTTOM BAR -->
 <div class="bot-bar">
   <a href="tel:+18062810650" class="bb-call" onclick="evt('click_call_bottombar')">📞 Call Now</a>
   <a href="#booking"         class="bb-book" onclick="evt('click_book_bottombar')">📅 Book Now — KELLY10</a>
 </div>
 
-<!-- ▶ CONV PILL -->
 <div id="conv-pill" onclick="openAdmin()" title="Admin dashboard">
   📊 <span id="conv-count">0</span> bookings
 </div>
 
-<!-- ▶ TOAST -->
 <div id="toast"></div>
 
-<!-- ▶ ADMIN PANEL -->
 <div id="admin-panel">
   <div class="admin-inner">
     <div class="admin-hdr">
@@ -1423,7 +1155,8 @@ function getSelectedPrice() {
   return '';
 }
 
-document.getElementById('bk-form').addEventListener('submit', function(e) {
+// ── UPDATED SUBMIT HANDLER — sends to Netlify function + Twilio SMS ──
+document.getElementById('bk-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   if (!validate()) {
     var btn = document.getElementById('submit-btn');
@@ -1432,6 +1165,11 @@ document.getElementById('bk-form').addEventListener('submit', function(e) {
     setTimeout(function() { btn.style.transform = ''; }, 180);
     return;
   }
+
+  var btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
   var nc = document.querySelector('input[name="newcust"]:checked');
   var bk = {
     id:          'BK' + Date.now(),
@@ -1446,12 +1184,51 @@ document.getElementById('bk-form').addEventListener('submit', function(e) {
     promoCode:   document.getElementById('f-promo').value.toUpperCase().trim(),
     timestamp:   new Date().toISOString()
   };
+
+  // 1. Save locally (admin panel backup)
   saveBooking(bk);
-  evt('booking_submitted', { service: bk.service, category: bk.category, price: bk.price, promoCode: bk.promoCode, newCustomer: bk.newCustomer });
   updatePill();
+
+  // 2. Send to Netlify function → fires SMS to you, Kelly, and customer
+  try {
+    var res = await fetch('/.netlify/functions/booking', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(bk)
+    });
+    var data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Server error');
+  } catch(err) {
+    console.warn('SMS issue:', err.message);
+    // Don't block the customer — still show success
+  }
+
+  // 3. Store booking server-side for 24hr reminders
+  try {
+    await fetch('/.netlify/functions/store-booking', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(bk)
+    });
+  } catch(err) {
+    console.warn('Store issue:', err.message);
+  }
+
+  evt('booking_submitted', {
+    service:     bk.service,
+    category:    bk.category,
+    price:       bk.price,
+    promoCode:   bk.promoCode,
+    newCustomer: bk.newCustomer
+  });
+
+  // 4. Show success screen
   document.getElementById('form-wrap').style.display = 'none';
   document.getElementById('success-screen').classList.add('on');
   document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+
+  btn.disabled = false;
+  btn.textContent = 'Submit Booking';
 });
 
 document.getElementById('btn-again').addEventListener('click', function() {
