@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kelly Threading — QR Cards (Print)</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+  /* ── PRINT SETUP ── */
+  @page {
+    size: letter portrait;
+    margin: 0.4in;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: #f5f0eb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4in;
+    padding: 0.4in;
+  }
+
+  /* ── INSTRUCTIONS (screen only) ── */
+  .instructions {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 8px;
+    padding: 16px 20px;
+    max-width: 720px;
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .instructions strong { color: #856404; }
+  .instructions ul { margin: 8px 0 0 20px; }
+  @media print { .instructions { display: none; } }
+
+  /* ── CARD WRAPPER ── */
+  .card-row {
+    display: flex;
+    gap: 0.3in;
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* ── BASE CARD ── */
+  .card {
+    width: 3.5in;
+    min-height: 5in;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.3in 0.25in;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    page-break-inside: avoid;
+  }
+
+  /* ── BOOKING CARD (rose gold) ── */
+  .card-book {
+    background: linear-gradient(160deg, #fff0f5 0%, #fce4ec 60%, #f8bbd0 100%);
+    border: 1.5px solid #f48fb1;
+  }
+
+  /* ── REVIEW CARD (deep rose + white) ── */
+  .card-review {
+    background: linear-gradient(160deg, #c94f72 0%, #a0285a 100%);
+    border: 1.5px solid #8b1a4a;
+    color: #fff;
+  }
+
+  /* ── LOGO AREA ── */
+  .logo-area {
+    text-align: center;
+    line-height: 1.1;
+  }
+  .logo-icon {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .logo-script {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    line-height: 1;
+    display: block;
+  }
+  .card-book .logo-script { color: #c94f72; }
+  .card-review .logo-script { color: #fff; }
+
+  .logo-tagline {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: block;
+  }
+  .card-book .logo-tagline { color: #a0607a; }
+  .card-review .logo-tagline { color: rgba(255,255,255,0.8); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60%;
+    height: 1px;
+    margin: 10px 0;
+  }
+  .card-book .divider { background: linear-gradient(to right, transparent, #f48fb1, transparent); }
+  .card-review .divider { background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent); }
+
+  /* ── HEADLINE ── */
+  .headline {
+    text-align: center;
+    font-weight: 900;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+  }
+  .card-book .headline { color: #7b1d45; }
+  .card-review .headline { color: #fff; }
+
+  .subtext {
+    text-align: center;
+    font-size: 0.72rem;
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+  .card-book .subtext { color: #9e4d6a; }
+  .card-review .subtext { color: rgba(255,255,255,0.88); }
+
+  /* ── QR CODE ── */
+  .qr-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .qr-frame {
+    padding: 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-book .qr-frame {
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(201,79,114,0.15);
+  }
+  .card-review .qr-frame {
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  }
+  .qr-frame img {
+    width: 160px;
+    height: 160px;
+    display: block;
+  }
+  .qr-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 2px;
+  }
+  .card-book .qr-label { color: #c94f72; }
+  .card-review .qr-label { color: rgba(255,255,255,0.7); }
+
+  /* ── PROMO BADGE (booking card) ── */
+  .promo-badge {
+    background: #c94f72;
+    color: #fff;
+    border-radius: 50px;
+    padding: 5px 16px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-align: center;
+  }
+  .promo-badge span {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+  }
+
+  /* ── STARS (review card) ── */
+  .stars {
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+  }
+
+  /* ── FOOTER INFO ── */
+  .card-footer {
+    text-align: center;
+    line-height: 1.7;
+  }
+  .card-footer .biz-name {
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .card-footer .detail {
+    font-size: 0.65rem;
+  }
+  .card-book .biz-name { color: #7b1d45; }
+  .card-book .detail { color: #a0607a; }
+  .card-review .biz-name { color: #fff; }
+  .card-review .detail { color: rgba(255,255,255,0.8); }
+
+  /* ── PAGE BREAK between rows when printing ── */
+  .page-break { display: none; }
+  @media print {
+    body { background: #fff; padding: 0.4in; gap: 0.4in; }
+    .page-break { display: block; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ PRINT INSTRUCTIONS (screen only) ══ -->
+<div class="instructions">
+  <strong>How to print these cards:</strong>
+  <ul>
+    <li>Press <strong>Ctrl+P</strong> (Windows) to open print dialog</li>
+    <li>Set paper size to <strong>Letter (8.5 x 11)</strong></li>
+    <li>Set margins to <strong>Minimum</strong> or <strong>None</strong></li>
+    <li>Enable <strong>Background graphics</strong> so colors print correctly</li>
+    <li>Print on <strong>cardstock</strong> for best results (80–100 lb recommended)</li>
+    <li>Cut along card borders — each card is 3.5 × 5 inches</li>
+  </ul>
+  <br>
+  <strong>To update the Google Review link to go directly to your review page:</strong>
+  <ul>
+    <li>Search "Kelly Threading Waxing Nail Spa Lubbock TX" on Google</li>
+    <li>Click your business listing → click the 3-dot menu → "Share" → "Copy link"</li>
+    <li>Replace the Google review URL in this file's HTML (labeled below in comments)</li>
+  </ul>
+</div>
+
+<!-- ══ ROW 1 — BOTH CARDS SIDE BY SIDE ══ -->
+<div class="card-row">
+
+  <!-- ── CARD 1: BOOK YOUR APPOINTMENT ── -->
+  <div class="card card-book">
+
+    <div class="logo-area">
+      <span class="logo-icon">🌸</span>
+      <span class="logo-script">Kelly Threading</span>
+      <span class="logo-tagline">Waxing · Nails · Spa · Lubbock TX</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div>
+      <div class="headline">Book Your<br>Appointment Online</div>
+      <div class="subtext">
+        Scan to book any service instantly —<br>
+        threading, waxing, facials & more.
+      </div>
+    </div>
+
+    <div class="qr-wrap">
+      <div class="qr-frame">
+        <!-- QR → kellythreading.com -->
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fkellythreading.com&color=7b1d45&bgcolor=ffffff&margin=10" alt="Scan to book">
+      </div>
+      <div class="qr-label">Scan with your phone camera</div>
+    </div>
+
+    <div class="promo-badge">
+      Use code <span>KELLY10</span> for 10% off
+    </div>
+
+    <div class="card-footer">
+      <div class="biz-name">Kelly Threading, Waxing, Nail &amp; Spa</div>
+      <div class="detail">2239 34th St · Lubbock, TX 79411</div>
+      <div class="detail">(806) 281-0650 · Mon–Sat 10am–7pm</div>
+      <div class="detail">kellythreading.com</div>
+    </div>
+
+  </div>
+
+  <!-- ── CARD 2: LEAVE A GOOGLE REVIEW ── -->
+  <div class="card card-review">
+
+    <div class="logo-area">
+      <span class="logo-icon">🌸</span>
+      <span class="logo-script">Kelly Threading</span>
+      <span class="logo-tagline">Waxing · Nails · Spa · Lubbock TX</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div>
+      <div class="headline">Loved Your Experience?<br>Tell the World!</div>
+      <div class="subtext">
+        Your review helps other Lubbock locals<br>
+        discover us — and means the world to us.
+      </div>
+    </div>
+
+    <div class="stars">⭐⭐⭐⭐⭐</div>
+
+    <div class="qr-wrap">
+      <div class="qr-frame">
+        <!--
+          GOOGLE REVIEW URL — UPDATE THIS:
+          Replace the data= value below with your direct Google review link.
+          To get it: Google your business → Share → Copy link → paste here (URL-encoded)
+          Current URL used: Google search for the business
+        -->
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3DKelly%2BThreading%2BWaxing%2BNail%2BSpa%2BLubbock%2BTX%2Breviews&color=a0285a&bgcolor=ffffff&margin=10" alt="Scan to leave a Google review">
+      </div>
+      <div class="qr-label" style="color:rgba(255,255,255,0.7)">Scan to leave us a Google review</div>
+    </div>
+
+    <div style="text-align:center;font-size:0.72rem;color:rgba(255,255,255,0.88);line-height:1.5;">
+      It only takes 30 seconds<br>and helps us so much. Thank you!
+    </div>
+
+    <div class="card-footer">
+      <div class="biz-name">Kelly Threading, Waxing, Nail &amp; Spa</div>
+      <div class="detail">2239 34th St · Lubbock, TX 79411</div>
+      <div class="detail">(806) 281-0650 · Mon–Sat 10am–7pm</div>
+      <div class="detail">@kellythreadinglubbock</div>
+    </div>
+
+  </div>
+
+</div>
+<!-- end row 1 -->
+
+</body>
+</html>
