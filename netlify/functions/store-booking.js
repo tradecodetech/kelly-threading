@@ -1,105 +1,59 @@
-// netlify/functions/store-booking.js
-// Called by booking.js after SMS is sent — persists booking to Netlify Blobs
-// so reminders can be scheduled and admin can see real data
+// Stores booking for scheduled follow-ups (24hr reminder, 48hr review request).
+// Forwards to a Google Sheets webhook if SHEETS_WEBHOOK env var is set.
 
-const https = require('https');
+const CORS = {
+  'Access-Control-Allow-Origin':  '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
 
-async function getBlob(key) {
-  const siteId = process.env.NETLIFY_SITE_ID;
-  const token  = process.env.NETLIFY_API_TOKEN;
-
-  return new Promise((resolve) => {
-    const options = {
-      hostname: 'api.netlify.com',
-      port: 443,
-      path: `/api/v1/sites/${siteId}/blobs/${encodeURIComponent(key)}`,
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` }
-    };
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        if (res.statusCode === 200) {
-          try { resolve(JSON.parse(data)); } catch { resolve(null); }
-        } else {
-          resolve(null);
-        }
-      });
-    });
-    req.on('error', () => resolve(null));
-    req.end();
-  });
-}
-
-async function setBlob(key, value) {
-  const siteId = process.env.NETLIFY_SITE_ID;
-  const token  = process.env.NETLIFY_API_TOKEN;
-  const body   = JSON.stringify(value);
-
-  return new Promise((resolve) => {
-    const options = {
-      hostname: 'api.netlify.com',
-      port: 443,
-      path: `/api/v1/sites/${siteId}/blobs/${encodeURIComponent(key)}`,
-      method: 'PUT',
-      headers: {
-        Authorization:    `Bearer ${token}`,
-        'Content-Type':   'application/json',
-        'Content-Length': Buffer.byteLength(body)
-      }
-    };
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => resolve(res.statusCode));
-    });
-    req.on('error', () => resolve(null));
-    req.write(body);
-    req.end();
-  });
-}
-
-exports.handler = async (event) => {
+exports.handler = async function(event) {
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 200, headers: CORS, body: '' };
+  }
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+    return { statusCode: 405, headers: CORS, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
 
-  const headers = {
-    'Access-Control-Allow-Origin':  '*',
-    'Content-Type': 'application/json'
-  };
+  let bk;
+  try { bk = JSON.parse(event.body); }
+  catch(e) { return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Invalid JSON' }) }; }
 
-  let booking;
-  try {
-    booking = JSON.parse(event.body);
-  } catch {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid JSON' }) };
+  // Always log — visible in Netlify function logs
+  console.log('BOOKING', JSON.stringify(bk));
+
+  // Optional: forward to Google Sheets via Apps Script webhook
+  const webhookUrl = process.env.SHEETS_WEBHOOK;
+  if (webhookUrl) {
+    try {
+      const res = await fetch(webhookUrl, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          id:          bk.id,
+          name:        bk.name,
+          phone:       bk.phone,
+          service:     bk.service,
+          category:    bk.category,
+          price:       bk.price,
+          date:        bk.date,
+          time:        bk.time,
+          newCustomer: bk.newCustomer,
+          promoCode:   bk.promoCode,
+          source:      bk.source,
+          timestamp:   bk.timestamp
+        })
+      });
+      if (!res.ok) throw new Error(`Sheets responded ${res.status}`);
+      console.log('Forwarded to Sheets for booking', bk.id);
+    } catch(err) {
+      console.error('Sheets webhook error:', err.message);
+    }
   }
-
-  // ── Add to all-bookings list ──
-  const allBookings = (await getBlob('all-bookings')) || [];
-  allBookings.unshift(booking); // newest first
-  // Cap at 500 bookings stored
-  if (allBookings.length > 500) allBookings.splice(500);
-  await setBlob('all-bookings', allBookings);
-
-  // ── Add to pending-reminders list ──
-  const pending = (await getBlob('pending-reminders')) || [];
-  pending.push({
-    id:           booking.id,
-    name:         booking.name,
-    phone:        booking.phone,
-    service:      booking.service,
-    date:         booking.date,
-    time:         booking.time,
-    reminderSent: false
-  });
-  await setBlob('pending-reminders', pending);
 
   return {
     statusCode: 200,
-    headers,
-    body: JSON.stringify({ success: true, bookingId: booking.id })
+    headers: { ...CORS, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ok: true })
   };
 };
